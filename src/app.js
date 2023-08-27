@@ -5,7 +5,7 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
-
+const cors = require('@koa/cors');
 const index = require('./routes/index')
 const users = require('./routes/users')
 
@@ -33,8 +33,10 @@ app.use(views(__dirname + '/views', {
 // })
 
 // routes
+app.use(cors());
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
+
 
 // error-handling
 app.on('error', (err, ctx) => {
